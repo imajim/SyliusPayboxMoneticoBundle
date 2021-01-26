@@ -48,4 +48,5 @@ interface PayboxParams
     const PBX_REPONDRE_A = 'PBX_REPONDRE_A';
     const PBX_TIME = 'PBX_TIME';
     const PBX_SOURCE = 'PBX_SOURCE';
+    const PBX_URL_RETOUR = 'url_retour';
 }
