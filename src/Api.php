@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Imajim\SyliusPayboxBundle;
+namespace Imajim\SyliusPayboxMoneticoBundle;
 
 use Http\Message\MessageFactory;
 use Monolog\Logger;

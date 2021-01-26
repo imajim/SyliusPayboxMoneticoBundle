@@ -1,6 +1,6 @@
 services:
     sylius.form.type.gateway_configuration.paybox:
-        class: Imajim\SyliusPayboxBundle\Form\Type\PayboxGatewayConfigurationType
+        class: Imajim\SyliusPayboxMoneticoBundle\Form\Type\PayboxGatewayConfigurationType
         tags:
             - { name: sylius.gateway_configuration_type, type: paybox, label: sylius.payum_gateway_factory.paybox_checkout }
             - { name: form.type }
@@ -8,12 +8,12 @@ services:
     sylius.payment.paybox.factory:
         class: Payum\Core\Bridge\Symfony\Builder\GatewayFactoryBuilder
         arguments:
-            - Imajim\SyliusPayboxBundle\PayboxGatewayFactory
+            - Imajim\SyliusPayboxMoneticoBundle\PayboxGatewayFactory
         tags:
             - { name: payum.gateway_factory_builder, factory: paybox }
 
     sylius.payum_extension.update_payment_security_token_details:
-        class: Imajim\SyliusPayboxBundle\Extension\UpdatePaymentSecurityTokenDetailsExtension
+        class: Imajim\SyliusPayboxMoneticoBundle\Extension\UpdatePaymentSecurityTokenDetailsExtension
         public: true
         arguments:
             - '@doctrine.orm.entity_manager'

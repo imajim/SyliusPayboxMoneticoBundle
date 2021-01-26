@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Imajim\SyliusPayboxBundle\Form\Type;
+namespace Imajim\SyliusPayboxMoneticoBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -32,8 +32,8 @@ final class PayboxGatewayConfigurationType extends AbstractType
                     new NotBlank(),
                 ],
             ])
-            ->add('rang', TextType::class, [
-                'label'       => 'sylius.form.gateway_configuration.paybox.rank',
+            ->add('tpe', TextType::class, [
+                'label'       => 'sylius.form.gateway_configuration.paybox.tpe',
                 'constraints' => [
                     new NotBlank(),
                 ],

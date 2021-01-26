@@ -10,12 +10,12 @@
  * file that was distributed with this source code.
  */
 
-namespace Imajim\SyliusPayboxBundle;
+namespace Imajim\SyliusPayboxMoneticoBundle;
 
-use Imajim\SyliusPayboxBundle\DependencyInjection\ImajimSyliusPayboxExtension;
+use Imajim\SyliusPayboxMoneticoBundle\DependencyInjection\ImajimSyliusPayboxExtension;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-final class ImajimSyliusPayboxBundle extends Bundle
+final class ImajimSyliusPayboxMoneticoBundle extends Bundle
 {
     public function getContainerExtension()
     {

@@ -10,15 +10,15 @@
  * file that was distributed with this source code.
  */
 
-namespace Imajim\SyliusPayboxBundle;
+namespace Imajim\SyliusPayboxMoneticoBundle;
 
-use Imajim\SyliusPayboxBundle\Action\AuthorizeAction;
-use Imajim\SyliusPayboxBundle\Action\CancelAction;
-use Imajim\SyliusPayboxBundle\Action\ConvertPaymentAction;
-use Imajim\SyliusPayboxBundle\Action\CaptureAction;
-use Imajim\SyliusPayboxBundle\Action\NotifyAction;
-use Imajim\SyliusPayboxBundle\Action\RefundAction;
-use Imajim\SyliusPayboxBundle\Action\StatusAction;
+use Imajim\SyliusPayboxMoneticoBundle\Action\AuthorizeAction;
+use Imajim\SyliusPayboxMoneticoBundle\Action\CancelAction;
+use Imajim\SyliusPayboxMoneticoBundle\Action\ConvertPaymentAction;
+use Imajim\SyliusPayboxMoneticoBundle\Action\CaptureAction;
+use Imajim\SyliusPayboxMoneticoBundle\Action\NotifyAction;
+use Imajim\SyliusPayboxMoneticoBundle\Action\RefundAction;
+use Imajim\SyliusPayboxMoneticoBundle\Action\StatusAction;
 use Monolog\Logger;
 use Payum\Core\Bridge\Spl\ArrayObject;
 use Payum\Core\GatewayFactory;
@@ -47,7 +47,7 @@ class PayboxGatewayFactory extends GatewayFactory
         if (false == $config['payum.api']) {
             $config['payum.default_options'] = array(
                 'site'          => '',
-                'rang'          => '',
+                'tpe'          => '',
                 'identifiant'   => '',
                 'hmac'          => '',
                 'hash'          => 'SHA512',
@@ -57,7 +57,7 @@ class PayboxGatewayFactory extends GatewayFactory
                 //'type_carte'    => '',
             );
             $config->defaults($config['payum.default_options']);
-            $config['payum.required_options'] = array('site', 'rang', 'identifiant', 'hmac');
+            $config['payum.required_options'] = array('site', 'tpe', 'identifiant', 'hmac');
 
             $config['payum.api'] = function (ArrayObject $config) {
                 $config->validateNotEmpty($config['payum.required_options']);

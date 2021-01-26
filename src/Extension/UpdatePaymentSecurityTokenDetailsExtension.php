@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Imajim\SyliusPayboxBundle\Extension;
+namespace Imajim\SyliusPayboxMoneticoBundle\Extension;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Payum\Core\Extension\Context;

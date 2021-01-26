@@ -10,14 +10,14 @@
  * file that was distributed with this source code.
  */
 
-namespace Imajim\SyliusPayboxBundle\Action\Api;
+namespace Imajim\SyliusPayboxMoneticoBundle\Action\Api;
 
 use Payum\Core\Action\ActionInterface;
 use Payum\Core\ApiAwareInterface;
 use Payum\Core\ApiAwareTrait;
 use Payum\Core\GatewayAwareInterface;
 use Payum\Core\GatewayAwareTrait;
-use Imajim\SyliusPayboxBundle\Api;
+use Imajim\SyliusPayboxMoneticoBundle\Api;
 
 abstract class BaseApiAwareAction implements ActionInterface, GatewayAwareInterface, ApiAwareInterface
 {

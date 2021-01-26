@@ -10,9 +10,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Imajim\SyliusPayboxBundle\Action;
+namespace Imajim\SyliusPayboxMoneticoBundle\Action;
 
-use Imajim\SyliusPayboxBundle\PayboxParams;
+use Imajim\SyliusPayboxMoneticoBundle\PayboxParams;
 use Payum\Core\Action\ActionInterface;
 use Payum\Core\Bridge\Spl\ArrayObject;
 use Payum\Core\Exception\RequestNotSupportedException;

@@ -5,6 +5,7 @@ sylius:
                 identifier: Identifiant
                 hmac: Clé HMAC
                 rank: Rang
+                tep: TPE
                 sandbox: Mode bac-à-sable
                 site: Site
     payum_gateway_factory:

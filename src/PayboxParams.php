@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Imajim\SyliusPayboxBundle;
+namespace Imajim\SyliusPayboxMoneticoBundle;
 
 /**
  * Interface PayBoxRequestParams.
@@ -18,12 +18,10 @@ namespace Imajim\SyliusPayboxBundle;
 interface PayboxParams
 {
     // Default servers urls
-    const SERVERS_PREPROD = array('preprod-tpeweb.e-transactions.fr');
-    const SERVERS_PROD = array('tpeweb.e-transactions.fr', 'tpeweb1.e-transactions.fr');
+    const SERVERS_PREPROD = array('p.monetico-services.com/test/');
+    const SERVERS_PROD = array('p.monetico-services.com');
 
-    const URL_CLASSIC = 'cgi/MYchoix_pagepaiement.cgi';
-    const URL_IFRAME = 'cgi/MYframepagepaiement_ip.cgi';
-    const URL_MOBILE = 'cgi/ChoixPaiementMobile.cgi';
+    const URL_CLASSIC = 'paiement.cgi';
 
     // Requests params values
     // TODO : use ConfigTreeBuilder to configure it
