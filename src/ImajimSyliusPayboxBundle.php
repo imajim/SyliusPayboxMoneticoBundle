@@ -12,7 +12,7 @@
 
 namespace Imajim\SyliusPayboxMoneticoBundle;
 
-use Imajim\SyliusPayboxMoneticoBundle\DependencyInjection\ImajimSyliusPayboxExtension;
+use Imajim\SyliusPayboxMoneticoBundle\DependencyInjection\ImajimSyliusPayboxMoneticoExtension;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 final class ImajimSyliusPayboxMoneticoBundle extends Bundle
@@ -20,7 +20,7 @@ final class ImajimSyliusPayboxMoneticoBundle extends Bundle
     public function getContainerExtension()
     {
         if (null === $this->extension) {
-            $this->extension = new ImajimSyliusPayboxExtension();
+            $this->extension = new ImajimSyliusPayboxMoneticoExtension();
         }
 
         return $this->extension;

@@ -27,31 +27,31 @@ final class PayboxGatewayConfigurationType extends AbstractType
     {
         $builder
             ->add('site', TextType::class, [
-                'label'       => 'sylius.form.gateway_configuration.paybox.site',
+                'label'       => 'sylius.form.gateway_configuration.paybox_monetico.site',
                 'constraints' => [
                     new NotBlank(),
                 ],
             ])
             ->add('tpe', TextType::class, [
-                'label'       => 'sylius.form.gateway_configuration.paybox.tpe',
+                'label'       => 'sylius.form.gateway_configuration.paybox_monetico.tpe',
                 'constraints' => [
                     new NotBlank(),
                 ],
             ])
             ->add('identifiant', TextType::class, [
-                'label'       => 'sylius.form.gateway_configuration.paybox.identifier',
+                'label'       => 'sylius.form.gateway_configuration.paybox_monetico.identifier',
                 'constraints' => [
                     new NotBlank(),
                 ],
             ])
             ->add('hmac', TextType::class, [
-                'label'       => 'sylius.form.gateway_configuration.paybox.hmac',
+                'label'       => 'sylius.form.gateway_configuration.paybox_monetico.hmac',
                 'constraints' => [
                     new NotBlank(),
                 ],
             ])
             ->add('sandbox', CheckboxType::class, [
-                'label'    => 'sylius.form.gateway_configuration.paybox.sandbox',
+                'label'    => 'sylius.form.gateway_configuration.paybox_monetico.sandbox',
                 'required' => false,
             ])
         ;

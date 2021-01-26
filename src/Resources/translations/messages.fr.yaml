@@ -1,7 +1,7 @@
 sylius:
     form:
         gateway_configuration:
-            paybox:
+            paybox_monetico:
                 identifier: Identifiant
                 hmac: Clé HMAC
                 rank: Rang
@@ -9,4 +9,4 @@ sylius:
                 sandbox: Mode bac-à-sable
                 site: Site
     payum_gateway_factory:
-        paybox_checkout: Paybox
+        paybox_checkout: Paybox Monetico

@@ -17,7 +17,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
-final class ImajimSyliusPayboxExtension extends Extension
+final class ImajimSyliusPayboxMoneticoExtension extends Extension
 {
     /**
      * {@inheritdoc}
