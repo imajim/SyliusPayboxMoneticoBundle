@@ -74,8 +74,8 @@ class Api
     {
         $newFields = [];
 
-        $fields[MoneticoParams::PBX_SITE] = $this->options['site'];
-        $fields[MoneticoParams::PBX_RANG] = $this->options['rang'];
+        //$fields[MoneticoParams::PBX_SITE] = $this->options['site'];
+        $fields[MoneticoParams::PBX_TPE] = $this->options['tpe'];
         $fields[MoneticoParams::PBX_IDENTIFIANT] = $this->options['identifiant'];
         $newFields = array_merge($newFields,$fields);
 

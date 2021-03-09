@@ -25,20 +25,32 @@ interface MoneticoParams
 
     // Requests params values
     // TODO : use ConfigTreeBuilder to configure it
-    const PBX_RETOUR_VALUE = 'Mt:M;Ref:R;Auto:A;Trans:S;error_code:E';
+    /*const PBX_RETOUR_VALUE = 'Mt:M;Ref:R;Auto:A;Trans:S;error_code:E';
     const PBX_DEVISE_EURO = '978';
     const PBX_SOURCE_MOBILE = 'XHTML';
-    const PBX_SOURCE_DESKTOP = 'HTML';
+    const PBX_SOURCE_DESKTOP = 'HTML';*/
+    const MONETICO_VERSION = '3.0';
 
     // Requests params keys
-    const PBX_SITE = 'PBX_SITE';
-    const PBX_RANG = 'PBX_RANG';
-    const PBX_IDENTIFIANT = 'PBX_IDENTIFIANT';
+    const PBX_SOCIETE= 'societe';
+    const PBX_TPE = 'TPE';
+    const PBX_HMAC = 'MAC';
+    const PBX_MONTANT = 'montant';
+    const PBX_DATE = 'date';
+    const PBX_REFERENCE = 'reference';
+    const PBX_URL_RETOUR_OK = 'url_retour_ok';
+    const PBX_URL_RETOUR_ERROR = 'url_retour_err';
+    const PBX_LANGUE = 'lgue';
+    const PBX_CONTEXTE = 'contexte_commande';
+    const PBX_VERSION = 'version';
+    const PBX_CMD = 'texte-libre';
+    const PBX_EMAIL = 'mail';
+
+
+    /*const PBX_IDENTIFIANT = 'IDENTIFIANT';
     const PBX_HASH = 'PBX_HASH';
     const PBX_RETOUR = 'PBX_RETOUR';
-    const PBX_HMAC = 'PBX_HMAC';
     const PBX_TYPEPAIEMENT = 'PBX_TYPEPAIEMENT';
-    const PBX_TOTAL = 'PBX_TOTAL';
     const PBX_DEVISE = 'PBX_DEVISE';
     const PBX_CMD = 'PBX_CMD';
     const PBX_PORTEUR = 'PBX_PORTEUR';
@@ -48,5 +60,5 @@ interface MoneticoParams
     const PBX_REPONDRE_A = 'PBX_REPONDRE_A';
     const PBX_TIME = 'PBX_TIME';
     const PBX_SOURCE = 'PBX_SOURCE';
-    const PBX_URL_RETOUR = 'url_retour';
+    */
 }

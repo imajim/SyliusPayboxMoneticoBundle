@@ -17,12 +17,13 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 final class SyliusMoneticoBundle extends Bundle
 {
-    public function getContainerExtension()
+   /* public function getContainerExtension()
     {
+
         if (null === $this->extension) {
             $this->extension = new ImajimSyliusMoneticoExtension();
         }
 
         return $this->extension;
-    }
+    }*/
 }
