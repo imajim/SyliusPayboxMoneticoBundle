@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Imajim\SyliusPayboxMoneticoBundle\DependencyInjection;
+namespace Imajim\SyliusMoneticoBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -23,7 +23,7 @@ final class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('imajim_sylius_paybox_monetico');
+        $rootNode = $treeBuilder->root('imajim_sylius_monetico');
 
         return $treeBuilder;
     }

@@ -10,17 +10,17 @@
  * file that was distributed with this source code.
  */
 
-namespace Imajim\SyliusPayboxMoneticoBundle;
+namespace Imajim\SyliusMoneticoBundle;
 
-use Imajim\SyliusPayboxMoneticoBundle\DependencyInjection\ImajimSyliusPayboxMoneticoExtension;
+use Imajim\SyliusMoneticoBundle\DependencyInjection\ImajimSyliusMoneticoExtension;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-final class ImajimSyliusPayboxMoneticoBundle extends Bundle
+final class SyliusMoneticoBundle extends Bundle
 {
     public function getContainerExtension()
     {
         if (null === $this->extension) {
-            $this->extension = new ImajimSyliusPayboxMoneticoExtension();
+            $this->extension = new ImajimSyliusMoneticoExtension();
         }
 
         return $this->extension;

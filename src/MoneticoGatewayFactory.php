@@ -10,20 +10,20 @@
  * file that was distributed with this source code.
  */
 
-namespace Imajim\SyliusPayboxMoneticoBundle;
+namespace Imajim\SyliusMoneticoBundle;
 
-use Imajim\SyliusPayboxMoneticoBundle\Action\AuthorizeAction;
-use Imajim\SyliusPayboxMoneticoBundle\Action\CancelAction;
-use Imajim\SyliusPayboxMoneticoBundle\Action\ConvertPaymentAction;
-use Imajim\SyliusPayboxMoneticoBundle\Action\CaptureAction;
-use Imajim\SyliusPayboxMoneticoBundle\Action\NotifyAction;
-use Imajim\SyliusPayboxMoneticoBundle\Action\RefundAction;
-use Imajim\SyliusPayboxMoneticoBundle\Action\StatusAction;
+use Imajim\SyliusMoneticoBundle\Action\AuthorizeAction;
+use Imajim\SyliusMoneticoBundle\Action\CancelAction;
+use Imajim\SyliusMoneticoBundle\Action\ConvertPaymentAction;
+use Imajim\SyliusMoneticoBundle\Action\CaptureAction;
+use Imajim\SyliusMoneticoBundle\Action\NotifyAction;
+use Imajim\SyliusMoneticoBundle\Action\RefundAction;
+use Imajim\SyliusMoneticoBundle\Action\StatusAction;
 use Monolog\Logger;
 use Payum\Core\Bridge\Spl\ArrayObject;
 use Payum\Core\GatewayFactory;
 
-class PayboxGatewayFactory extends GatewayFactory
+class MoneticoGatewayFactory extends GatewayFactory
 {
 
     /**
@@ -33,8 +33,8 @@ class PayboxGatewayFactory extends GatewayFactory
     {
 
         $config->defaults([
-            'payum.factory_name' => 'payboxMonetico',
-            'payum.factory_title' => 'Paybox Monetico',
+            'payum.factory_name' => 'monetico',
+            'payum.factory_title' => 'Monetico',
             'payum.action.capture' => new CaptureAction(),
             'payum.action.authorize' => new AuthorizeAction(),
             'payum.action.refund' => new RefundAction(),

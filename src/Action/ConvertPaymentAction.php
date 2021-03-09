@@ -10,9 +10,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Imajim\SyliusPayboxMoneticoBundle\Action;
+namespace Imajim\SyliusMoneticoBundle\Action;
 
-use Imajim\SyliusPayboxMoneticoBundle\PayboxParams;
+use Imajim\SyliusMoneticoBundle\MoneticoParams;
 use Payum\Core\Action\ActionInterface;
 use Payum\Core\Bridge\Spl\ArrayObject;
 use Payum\Core\Exception\RequestNotSupportedException;
@@ -44,31 +44,31 @@ class ConvertPaymentAction implements ActionInterface, GatewayAwareInterface, Ge
 
          // ATTENTION à l'ordre des champs
         $details = ArrayObject::ensureArrayObject($payment->getDetails());
-        $details[PayboxParams::PBX_TOTAL] = $order->getTotal();
-        $details[PayboxParams::PBX_DEVISE] = PayboxParams::PBX_DEVISE_EURO;
-        $details[PayboxParams::PBX_CMD] = $order->getNumber();
-        $details[PayboxParams::PBX_PORTEUR] = $order->getCustomer()->getEmail();
+        $details[MoneticoParams::PBX_TOTAL] = $order->getTotal();
+        $details[MoneticoParams::PBX_DEVISE] = MoneticoParams::PBX_DEVISE_EURO;
+        $details[MoneticoParams::PBX_CMD] = $order->getNumber();
+        $details[MoneticoParams::PBX_PORTEUR] = $order->getCustomer()->getEmail();
         $token = $request->getToken();
-        $details[PayboxParams::PBX_RETOUR] = PayboxParams::PBX_RETOUR_VALUE;
-        $details[PayboxParams::PBX_EFFECTUE] = $token->getTargetUrl();
-        $details[PayboxParams::PBX_ANNULE] = $token->getTargetUrl();
-        $details[PayboxParams::PBX_REFUSE] = $token->getTargetUrl();
-        //$details[PayboxParams::PBX_TYPECARTE] = 'CB';
-        //$details[PayboxParams::PBX_TYPEPAIEMENT] = 'CARTE';
+        $details[MoneticoParams::PBX_RETOUR] = MoneticoParams::PBX_RETOUR_VALUE;
+        $details[MoneticoParams::PBX_EFFECTUE] = $token->getTargetUrl();
+        $details[MoneticoParams::PBX_ANNULE] = $token->getTargetUrl();
+        $details[MoneticoParams::PBX_REFUSE] = $token->getTargetUrl();
+        //$details[MoneticoParams::PBX_TYPECARTE] = 'CB';
+        //$details[MoneticoParams::PBX_TYPEPAIEMENT] = 'CARTE';
 
 
 
         // Prevent duplicated payment error
         if (strpos($token->getGatewayName(), 'sandbox') !== false) {
-            $details[PayboxParams::PBX_CMD] = sprintf('%s-%d', $details[PayboxParams::PBX_CMD], time());
+            $details[MoneticoParams::PBX_CMD] = sprintf('%s-%d', $details[MoneticoParams::PBX_CMD], time());
         }else{
-            //$details[PayboxParams::PBX_CMD] = sprintf('%s-%d', $details[PayboxParams::PBX_CMD], time());
-            //$details[PayboxParams::PBX_CMD] =  time();
+            //$details[MoneticoParams::PBX_CMD] = sprintf('%s-%d', $details[MoneticoParams::PBX_CMD], time());
+            //$details[MoneticoParams::PBX_CMD] =  time();
         }
 
-        if (false == isset($details[PayboxParams::PBX_REPONDRE_A]) && $this->tokenFactory) {
+        if (false == isset($details[MoneticoParams::PBX_REPONDRE_A]) && $this->tokenFactory) {
             $notifyToken = $this->tokenFactory->createNotifyToken($token->getGatewayName(), $payment);
-            $details[PayboxParams::PBX_REPONDRE_A] = $notifyToken->getTargetUrl();
+            $details[MoneticoParams::PBX_REPONDRE_A] = $notifyToken->getTargetUrl();
         }
 
 

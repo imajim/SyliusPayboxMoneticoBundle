@@ -1,1 +1,1 @@
-# SyliusPayboxMoneticoBundle
+# SyliusMoneticoBundle

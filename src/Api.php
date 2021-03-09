@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Imajim\SyliusPayboxMoneticoBundle;
+namespace Imajim\SyliusMoneticoBundle;
 
 use Http\Message\MessageFactory;
 use Monolog\Logger;
@@ -74,16 +74,16 @@ class Api
     {
         $newFields = [];
 
-        $fields[PayboxParams::PBX_SITE] = $this->options['site'];
-        $fields[PayboxParams::PBX_RANG] = $this->options['rang'];
-        $fields[PayboxParams::PBX_IDENTIFIANT] = $this->options['identifiant'];
+        $fields[MoneticoParams::PBX_SITE] = $this->options['site'];
+        $fields[MoneticoParams::PBX_RANG] = $this->options['rang'];
+        $fields[MoneticoParams::PBX_IDENTIFIANT] = $this->options['identifiant'];
         $newFields = array_merge($newFields,$fields);
 
-        $fields[PayboxParams::PBX_SOURCE] = $this->isMobileBrowser() ? PayboxParams::PBX_SOURCE_MOBILE : PayboxParams::PBX_SOURCE_DESKTOP;
-        $fields[PayboxParams::PBX_HASH] = $this->options['hash'];
-        $fields[PayboxParams::PBX_TIME] =  date("c");
+        $fields[MoneticoParams::PBX_SOURCE] = $this->isMobileBrowser() ? MoneticoParams::PBX_SOURCE_MOBILE : MoneticoParams::PBX_SOURCE_DESKTOP;
+        $fields[MoneticoParams::PBX_HASH] = $this->options['hash'];
+        $fields[MoneticoParams::PBX_TIME] =  date("c");
 
-        $fields[PayboxParams::PBX_HMAC] = strtoupper($this->computeHmac($this->options['hmac'], $fields));
+        $fields[MoneticoParams::PBX_HMAC] = strtoupper($this->computeHmac($this->options['hmac'], $fields));
         //var_dump($fields);
         //die();
 
@@ -96,10 +96,10 @@ class Api
      */
     protected function getApiEndpoint()
     {
-        $servers = $this->options['sandbox'] ? PayboxParams::SERVERS_PREPROD : PayboxParams::SERVERS_PROD;
+        $servers = $this->options['sandbox'] ? MoneticoParams::SERVERS_PREPROD : MoneticoParams::SERVERS_PROD;
 
         //TODO: add choice for paybox payment page (iframe, mobile or classic)
-        $endpoint = PayboxParams::URL_CLASSIC;
+        $endpoint = MoneticoParams::URL_CLASSIC;
 
         // Test if paybox server is available
         // otherwise, use fallback url
@@ -125,7 +125,7 @@ class Api
         // Si la clé est en ASCII, On la transforme en binaire
         $binKey = pack('H*', $hmac);
         $msg = $this->stringify($fields);
-        $string = strtoupper(hash_hmac($fields[PayboxParams::PBX_HASH], $msg, $binKey));
+        $string = strtoupper(hash_hmac($fields[MoneticoParams::PBX_HASH], $msg, $binKey));
 
         return $string;
     }

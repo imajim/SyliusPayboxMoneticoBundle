@@ -1,19 +1,19 @@
 services:
-    sylius.form.type.gateway_configuration.paybox_monetico:
-        class: Imajim\SyliusPayboxMoneticoBundle\Form\Type\PayboxGatewayConfigurationType
+    sylius.form.type.gateway_configuration.monetico:
+        class: Imajim\SyliusMoneticoBundle\Form\Type\MoneticoGatewayConfigurationType
         tags:
-            - { name: sylius.gateway_configuration_type, type: paybox, label: sylius.payum_gateway_factory.paybox_monetico_checkout }
+            - { name: sylius.gateway_configuration_type, type: monetico, label: sylius.payum_gateway_factory.monetico_checkout }
             - { name: form.type }
 
-    sylius.payment.paybox.factory:
+    sylius.payment.monetico.factory:
         class: Payum\Core\Bridge\Symfony\Builder\GatewayFactoryBuilder
         arguments:
-            - Imajim\SyliusPayboxMoneticoBundle\PayboxGatewayFactory
+            - Imajim\SyliusMoneticoBundle\MoneticoGatewayFactory
         tags:
-            - { name: payum.gateway_factory_builder, factory: paybox }
+            - { name: payum.gateway_factory_builder, factory: monetico }
 
     sylius.payum_extension.update_payment_security_token_details:
-        class: Imajim\SyliusPayboxMoneticoBundle\Extension\UpdatePaymentSecurityTokenDetailsExtension
+        class: Imajim\SyliusMoneticoBundle\Extension\UpdatePaymentSecurityTokenDetailsExtension
         public: true
         arguments:
             - '@doctrine.orm.entity_manager'

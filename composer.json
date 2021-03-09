@@ -1,8 +1,8 @@
 {
     "name": "imajim/sylius-paybox-monetico-bundle",
     "type": "symfony-bundle",
-    "description": "Paybox Monetico gateway for Sylius projects.",
-    "keywords": ["Sylius", "Payum", "Paybox", "Symfony","Monetico"],
+    "description": "Monetico gateway for Sylius projects.",
+    "keywords": ["Sylius", "Payum", "Symfony","Monetico"],
     "license": "MIT",
     "authors": [
         {
@@ -17,7 +17,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Imajim\\SyliusPayboxMoneticoBundle\\": "src/"
+            "Imajim\\SyliusMoneticoBundle\\": "src/"
         }
     },
     "require-dev": {

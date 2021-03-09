@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Imajim\SyliusPayboxMoneticoBundle\Action;
+namespace Imajim\SyliusMoneticoBundle\Action;
 
 use Payum\Core\Action\ActionInterface;
 use Payum\Core\Request\GetStatusInterface;

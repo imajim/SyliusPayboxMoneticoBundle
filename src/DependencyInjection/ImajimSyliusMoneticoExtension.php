@@ -10,14 +10,14 @@
  * file that was distributed with this source code.
  */
 
-namespace Imajim\SyliusPayboxMoneticoBundle\DependencyInjection;
+namespace Imajim\SyliusMoneticoBundle\DependencyInjection;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
-final class ImajimSyliusPayboxMoneticoExtension extends Extension
+final class ImajimSyliusMoneticoExtension extends Extension
 {
     /**
      * {@inheritdoc}
@@ -32,6 +32,6 @@ final class ImajimSyliusPayboxMoneticoExtension extends Extension
 
     public function getAlias()
     {
-        return 'paybox';
+        return 'monetico';
     }
 }

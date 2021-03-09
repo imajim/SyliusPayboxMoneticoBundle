@@ -10,12 +10,12 @@
  * file that was distributed with this source code.
  */
 
-namespace Imajim\SyliusPayboxMoneticoBundle;
+namespace Imajim\SyliusMoneticoBundle;
 
 /**
  * Interface PayBoxRequestParams.
  */
-interface PayboxParams
+interface MoneticoParams
 {
     // Default servers urls
     const SERVERS_PREPROD = array('p.monetico-services.com/test/');

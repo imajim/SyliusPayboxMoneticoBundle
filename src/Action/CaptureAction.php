@@ -10,9 +10,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Imajim\SyliusPayboxMoneticoBundle\Action;
+namespace Imajim\SyliusMoneticoBundle\Action;
 
-use Imajim\SyliusPayboxMoneticoBundle\Api;
+use Imajim\SyliusMoneticoBundle\Api;
 use Monolog\Handler\StreamHandler;
 use Payum\Core\Bridge\Spl\ArrayObject;
 use Payum\Core\ApiAwareTrait;

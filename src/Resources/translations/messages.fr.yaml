@@ -1,12 +1,12 @@
 sylius:
     form:
         gateway_configuration:
-            paybox_monetico:
+            monetico:
                 identifier: Identifiant
                 hmac: Clé HMAC
                 rank: Rang
-                tep: TPE
+                tpe: TPE
                 sandbox: Mode bac-à-sable
                 site: Site
     payum_gateway_factory:
-        paybox_checkout: Paybox Monetico
+        monetico_checkout: Monetico
