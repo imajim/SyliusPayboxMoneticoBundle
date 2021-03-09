@@ -15,9 +15,9 @@ namespace Imajim\SyliusMoneticoBundle;
 use Imajim\SyliusMoneticoBundle\DependencyInjection\ImajimSyliusMoneticoExtension;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-final class SyliusMoneticoBundle extends Bundle
+final class ImajimSyliusMoneticoBundle extends Bundle
 {
-   /* public function getContainerExtension()
+    public function getContainerExtension()
     {
 
         if (null === $this->extension) {
@@ -25,5 +25,5 @@ final class SyliusMoneticoBundle extends Bundle
         }
 
         return $this->extension;
-    }*/
+    }
 }
