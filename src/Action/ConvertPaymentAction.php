@@ -45,18 +45,18 @@ class ConvertPaymentAction implements ActionInterface, GatewayAwareInterface, Ge
         // ATTENTION à l'ordre des champs
         $details = ArrayObject::ensureArrayObject($payment->getDetails());
         $details[MoneticoParams::PBX_TPE] = '';
+        $details[MoneticoParams::PBX_SOCIETE] = MoneticoParams::MONETICO_SOCIETE;
         $details[MoneticoParams::PBX_VERSION] = MoneticoParams::MONETICO_VERSION;
         $details[MoneticoParams::PBX_DATE] = $order->getCreatedAt()->format('d/m/Y:H:i:s');
-        $details[MoneticoParams::PBX_MONTANT] = $order->getTotal();
+        $details[MoneticoParams::PBX_MONTANT] = ($order->getTotal()/100).MoneticoParams::MONETICO_DEVISE_EURO;
         $details[MoneticoParams::PBX_REFERENCE] = $order->getNumber();
         $langue = MoneticoParams::MONETICO_LANGUE;
         if (isset($payment->getMethod()->getGatewayConfig()->getConfig()['langue'])) {
             $langue = $payment->getMethod()->getGatewayConfig()->getConfig()['langue'];
         }
         $details[MoneticoParams::PBX_LANGUE] = $langue;
-        $details[MoneticoParams::PBX_MAC] = '';
         $details[MoneticoParams::PBX_CONTEXTE] = $this->createContext($order);
-        $details[MoneticoParams::PBX_SOCIETE] = '';
+
 
         $details[MoneticoParams::PBX_EMAIL] = $order->getCustomer()->getEmail();
         $token = $request->getToken();
@@ -95,18 +95,19 @@ class ConvertPaymentAction implements ActionInterface, GatewayAwareInterface, Ge
         $datas = [];
         $datas['billing'] = [
             'name' => $billing->getLastName() . ' ' .$billing->getFirstName(),
-            'lastname' => $billing->getLastName(),
+            'lastName' => $billing->getLastName(),
             'firstName' => $billing->getFirstName(),
-            'address' => $billing->getStreet(),
+            'addressLine1' => $billing->getStreet(),
             'city' => $billing->getCity(),
             'postalCode' => $billing->getPostcode(),
             'country' => $billing->getCountryCode(),
             'email' => $order->getCustomer()->getEmail(),
-            'phone' => $order->getCustomer()->getPhoneNumber(),
+            'phone' =>  preg_replace("/^0/", "+33-", $order->getCustomer()->getPhoneNumber()),
         ];
         $datas['client'] = $datas['billing'];
 
-        return json_encode($datas);
+
+        return base64_encode(json_encode($datas));
     }
 
     /**

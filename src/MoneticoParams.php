@@ -23,6 +23,7 @@ interface MoneticoParams
 
     const URL_CLASSIC = 'paiement.cgi';
     const MONETICO_LANGUE = 'FR';
+    const MONETICO_SOCIETE = '';
 
     // Requests params values
     // TODO : use ConfigTreeBuilder to configure it
@@ -31,6 +32,7 @@ interface MoneticoParams
     const PBX_SOURCE_MOBILE = 'XHTML';
     const PBX_SOURCE_DESKTOP = 'HTML';*/
     const MONETICO_VERSION = '3.0';
+    const MONETICO_DEVISE_EURO = 'EUR';
 
     // Requests params keys
     const PBX_SOCIETE= 'societe';

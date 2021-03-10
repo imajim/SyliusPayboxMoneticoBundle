@@ -20,6 +20,7 @@ use RuntimeException;
 
 class Api
 {
+
     /**
      * @var HttpClientInterface
      */
@@ -73,10 +74,14 @@ class Api
 
         //$fields[MoneticoParams::PBX_SITE] = $this->options['site'];
         $fields[MoneticoParams::PBX_TPE] = $this->options['tpe'];
+        $fields[MoneticoParams::PBX_SOCIETE] = $this->options['site'];
         //$fields[MoneticoParams::PBX_IDENTIFIANT] = $this->options['identifiant'];
 
         $fields[MoneticoParams::PBX_MAC] = ($this->computeHmac($this->options['hmac'], $fields, $this->options['hash']));
 
+        //Les six premiers et les six derniers caractères de la valeur de contrôle attendue pour le MAC sont : 8E0061****************************4FD3E5
+
+       
         $authorizeTokenUrl = $this->getApiEndpoint();
         throw new HttpPostRedirect($authorizeTokenUrl, $fields);
     }
@@ -114,9 +119,11 @@ class Api
     private function computeHmac($hmac, $fields, $hash)
     {
         // Si la clé est en ASCII, On la transforme en binaire
-        $binKey = pack('H*', $hmac);
+        $binKey = hex2bin($hmac);
+
         $msg = $this->stringify($fields);
-        $string = (hash_hmac($hash, $msg, $binKey));
+
+        $string = hash_hmac($hash, $msg, $binKey);
 
         return $string;
     }
@@ -130,10 +137,14 @@ class Api
      */
     private function stringify(array $array)
     {
-        $result = [];
-        foreach ($array as $key => $value) {
+        ksort($array);
+        $result = $array;
+        /*foreach ($array as $key => $value) {
             $result[] = sprintf('%s=%s', $key, $value);
-        }
+        }*/
+        array_walk($result, function (&$item, $key) {
+            $item = "$key=$item";
+        });
 
         return implode('*', $result);
     }
