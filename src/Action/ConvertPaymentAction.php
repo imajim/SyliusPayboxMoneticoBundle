@@ -12,6 +12,7 @@
 
 namespace Imajim\SyliusMoneticoBundle\Action;
 
+use App\Entity\Order\Order;
 use Imajim\SyliusMoneticoBundle\MoneticoParams;
 use Payum\Core\Action\ActionInterface;
 use Payum\Core\Bridge\Spl\ArrayObject;
@@ -41,38 +42,71 @@ class ConvertPaymentAction implements ActionInterface, GatewayAwareInterface, Ge
         $payment = $request->getSource();
         $order = $payment->getOrder();
 
-
-         // ATTENTION à l'ordre des champs
+        // ATTENTION à l'ordre des champs
         $details = ArrayObject::ensureArrayObject($payment->getDetails());
-        $details[MoneticoParams::PBX_TOTAL] = $order->getTotal();
-        $details[MoneticoParams::PBX_DEVISE] = MoneticoParams::PBX_DEVISE_EURO;
-        $details[MoneticoParams::PBX_CMD] = $order->getNumber();
-        $details[MoneticoParams::PBX_PORTEUR] = $order->getCustomer()->getEmail();
+        $details[MoneticoParams::PBX_TPE] = '';
+        $details[MoneticoParams::PBX_VERSION] = MoneticoParams::MONETICO_VERSION;
+        $details[MoneticoParams::PBX_DATE] = $order->getCreatedAt()->format('d/m/Y:H:i:s');
+        $details[MoneticoParams::PBX_MONTANT] = $order->getTotal();
+        $details[MoneticoParams::PBX_REFERENCE] = $order->getNumber();
+        $langue = MoneticoParams::MONETICO_LANGUE;
+        if (isset($payment->getMethod()->getGatewayConfig()->getConfig()['langue'])) {
+            $langue = $payment->getMethod()->getGatewayConfig()->getConfig()['langue'];
+        }
+        $details[MoneticoParams::PBX_LANGUE] = $langue;
+        $details[MoneticoParams::PBX_MAC] = '';
+        $details[MoneticoParams::PBX_CONTEXTE] = $this->createContext($order);
+        $details[MoneticoParams::PBX_SOCIETE] = '';
+
+        $details[MoneticoParams::PBX_EMAIL] = $order->getCustomer()->getEmail();
         $token = $request->getToken();
-        $details[MoneticoParams::PBX_RETOUR] = MoneticoParams::PBX_RETOUR_VALUE;
-        $details[MoneticoParams::PBX_EFFECTUE] = $token->getTargetUrl();
-        $details[MoneticoParams::PBX_ANNULE] = $token->getTargetUrl();
-        $details[MoneticoParams::PBX_REFUSE] = $token->getTargetUrl();
+        //$details[MoneticoParams::PBX_URL_RETOUR_OK] = MoneticoParams::PBX_RETOUR_VALUE;
+
+        $details[MoneticoParams::PBX_URL_RETOUR_OK] = $token->getTargetUrl();
+        $details[MoneticoParams::PBX_URL_RETOUR_ERROR] = $token->getTargetUrl();
+
+
+
+
         //$details[MoneticoParams::PBX_TYPECARTE] = 'CB';
         //$details[MoneticoParams::PBX_TYPEPAIEMENT] = 'CARTE';
 
 
-
         // Prevent duplicated payment error
         if (strpos($token->getGatewayName(), 'sandbox') !== false) {
-            $details[MoneticoParams::PBX_CMD] = sprintf('%s-%d', $details[MoneticoParams::PBX_CMD], time());
-        }else{
+            //$details[MoneticoParams::PBX_CMD] = sprintf('%s-%d', $details[MoneticoParams::PBX_CMD], time());
+        } else {
             //$details[MoneticoParams::PBX_CMD] = sprintf('%s-%d', $details[MoneticoParams::PBX_CMD], time());
             //$details[MoneticoParams::PBX_CMD] =  time();
         }
 
-        if (false == isset($details[MoneticoParams::PBX_REPONDRE_A]) && $this->tokenFactory) {
+        /*if (false == isset($details[MoneticoParams::PBX_REPONDRE_A]) && $this->tokenFactory) {
             $notifyToken = $this->tokenFactory->createNotifyToken($token->getGatewayName(), $payment);
             $details[MoneticoParams::PBX_REPONDRE_A] = $notifyToken->getTargetUrl();
-        }
+        }*/
 
+        $request->setResult((array)$details);
+    }
 
-        $request->setResult((array) $details);
+    private function createContext(Order $order)
+    {
+        $billing = $order->getShippingAddress();
+
+        $datas = [];
+        $datas['billing'] = [
+            'name' => $billing->getLastName() . ' ' .$billing->getFirstName(),
+            'lastname' => $billing->getLastName(),
+            'firstName' => $billing->getFirstName(),
+            'address' => $billing->getStreet(),
+            'city' => $billing->getCity(),
+            'postalCode' => $billing->getPostcode(),
+            'country' => $billing->getCountryCode(),
+            'email' => $order->getCustomer()->getEmail(),
+            'phone' => $order->getCustomer()->getPhoneNumber(),
+        ];
+        $datas['client'] = $datas['billing'];
+
+        return json_encode($datas);
     }
 
     /**
@@ -83,7 +117,6 @@ class ConvertPaymentAction implements ActionInterface, GatewayAwareInterface, Ge
         return
             $request instanceof Convert &&
             $request->getSource() instanceof PaymentInterface &&
-            $request->getTo() == 'array'
-        ;
+            $request->getTo() == 'array';
     }
 }

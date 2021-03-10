@@ -23,7 +23,7 @@ final class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('imajim_sylius_monetico');
+        $rootNode = $treeBuilder->root('sylius_monetico');
 
         return $treeBuilder;
     }

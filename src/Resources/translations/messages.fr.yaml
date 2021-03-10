@@ -1,4 +1,4 @@
-sylius:
+imajim:
     form:
         gateway_configuration:
             monetico:

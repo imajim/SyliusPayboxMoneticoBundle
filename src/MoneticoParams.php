@@ -18,10 +18,11 @@ namespace Imajim\SyliusMoneticoBundle;
 interface MoneticoParams
 {
     // Default servers urls
-    const SERVERS_PREPROD = array('p.monetico-services.com/test/');
+    const SERVERS_PREPROD = array('p.monetico-services.com/test');
     const SERVERS_PROD = array('p.monetico-services.com');
 
     const URL_CLASSIC = 'paiement.cgi';
+    const MONETICO_LANGUE = 'FR';
 
     // Requests params values
     // TODO : use ConfigTreeBuilder to configure it
@@ -34,7 +35,8 @@ interface MoneticoParams
     // Requests params keys
     const PBX_SOCIETE= 'societe';
     const PBX_TPE = 'TPE';
-    const PBX_HMAC = 'MAC';
+    const PBX_MAC = 'MAC';
+    const PBX_HASH = 'HASH';
     const PBX_MONTANT = 'montant';
     const PBX_DATE = 'date';
     const PBX_REFERENCE = 'reference';

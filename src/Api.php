@@ -13,7 +13,6 @@
 namespace Imajim\SyliusMoneticoBundle;
 
 use Http\Message\MessageFactory;
-use Monolog\Logger;
 use Payum\Core\Exception\Http\HttpException;
 use Payum\Core\HttpClientInterface;
 use Payum\Core\Reply\HttpPostRedirect;
@@ -35,11 +34,10 @@ class Api
      * @var array
      */
 
-
     /**
-     * @param array               $options
+     * @param array $options
      * @param HttpClientInterface $client
-     * @param MessageFactory      $messageFactory
+     * @param MessageFactory $messageFactory
      *
      * @throws \Payum\Core\Exception\InvalidArgumentException if an option is invalid
      */
@@ -72,20 +70,12 @@ class Api
 
     public function doPayment(array $fields)
     {
-        $newFields = [];
 
         //$fields[MoneticoParams::PBX_SITE] = $this->options['site'];
         $fields[MoneticoParams::PBX_TPE] = $this->options['tpe'];
-        $fields[MoneticoParams::PBX_IDENTIFIANT] = $this->options['identifiant'];
-        $newFields = array_merge($newFields,$fields);
+        //$fields[MoneticoParams::PBX_IDENTIFIANT] = $this->options['identifiant'];
 
-        $fields[MoneticoParams::PBX_SOURCE] = $this->isMobileBrowser() ? MoneticoParams::PBX_SOURCE_MOBILE : MoneticoParams::PBX_SOURCE_DESKTOP;
-        $fields[MoneticoParams::PBX_HASH] = $this->options['hash'];
-        $fields[MoneticoParams::PBX_TIME] =  date("c");
-
-        $fields[MoneticoParams::PBX_HMAC] = strtoupper($this->computeHmac($this->options['hmac'], $fields));
-        //var_dump($fields);
-        //die();
+        $fields[MoneticoParams::PBX_MAC] = ($this->computeHmac($this->options['hmac'], $fields, $this->options['hash']));
 
         $authorizeTokenUrl = $this->getApiEndpoint();
         throw new HttpPostRedirect($authorizeTokenUrl, $fields);
@@ -105,9 +95,10 @@ class Api
         // otherwise, use fallback url
         foreach ($servers as $server) {
             $doc = new \DOMDocument();
-            $doc->loadHTMLFile('https://' . $server . '/load.html');
-            $element = $doc->getElementById('server_status');
-            if ($element && 'OK' == $element->textContent) {
+            $doc->loadHTMLFile('https://' . $server . '/' . $endpoint);
+            $element = $doc->getElementById('e_fullSite');
+
+            if ($element && !empty(trim($element->textContent))) {
                 return 'https://' . $server . '/' . $endpoint;
             }
         }
@@ -120,12 +111,12 @@ class Api
      *
      * @return string
      */
-    private function computeHmac($hmac, $fields)
+    private function computeHmac($hmac, $fields, $hash)
     {
         // Si la clé est en ASCII, On la transforme en binaire
         $binKey = pack('H*', $hmac);
         $msg = $this->stringify($fields);
-        $string = strtoupper(hash_hmac($fields[MoneticoParams::PBX_HASH], $msg, $binKey));
+        $string = (hash_hmac($hash, $msg, $binKey));
 
         return $string;
     }
@@ -139,12 +130,12 @@ class Api
      */
     private function stringify(array $array)
     {
-        $result = array();
+        $result = [];
         foreach ($array as $key => $value) {
             $result[] = sprintf('%s=%s', $key, $value);
         }
 
-        return implode('&', $result);
+        return implode('*', $result);
     }
 
     /**

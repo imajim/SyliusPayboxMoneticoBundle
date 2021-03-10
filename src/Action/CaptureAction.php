@@ -45,8 +45,12 @@ class CaptureAction extends GatewayAwareAction implements ApiAwareInterface
 
         $model = ArrayObject::ensureArrayObject($request->getModel());
 
+      
         $httpRequest = new GetHttpRequest();
+
+
         $this->gateway->execute($httpRequest);
+
         if (isset($httpRequest->query['error_code'])) {
             $model->replace($httpRequest->query);
         } else {
